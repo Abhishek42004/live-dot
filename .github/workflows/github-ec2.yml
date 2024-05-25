@@ -33,10 +33,17 @@ jobs:
           script: |
             # Navigate to the target directory
             cd ${{ secrets.TARGET_DIR }}
+
+            # Remove existing Node.js versions
+            sudo yum remove -y nodejs npm
             
-            # Install Node.js and npm
-            curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+            # Install Node.js 18.x
+            curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
             sudo yum install -y nodejs
+
+            # Verify installation
+            node -v
+            npm -v
             
             # Install dependencies
             npm install
