@@ -1,22 +1,26 @@
-const express = require("express");
-const app = express();
-require("dotenv").config()
+// Import the http module
+const http = require('http');
+require('dotenv').config();
 
-app.get('/api/get',(req,res) => {
-    res.send({message:"hello back to nodejs"})
-})
+// Define the port
+const port = process.env.PORT || 5000; // Default to port 5000 if PORT environment variable is not set
 
-app.get('/api/get_user_details',(req,res) => {
-    res.send({
-        user:{
-            name:"satyam",
-            age:22,
-            contact:12254
-        },env:process.env.NAME
-    })
+// Create the server
+const server = http.createServer((req, res) => {
+  // Set the response HTTP header with HTTP status and Content type
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+
+  // Check if the request is for the root URL
+  if (req.url === '/') {
+    res.end('Hello World\n');
+  } else {
+    res.statusCode = 404;
+    res.end('Not Found\n');
+  }
 });
 
-
-app.listen(process.env.PORT,() => {
-    console.log("listening to 8000");
-})
+// Make the server listen on the defined port
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
