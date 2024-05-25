@@ -1,6 +1,6 @@
 name: Deploy to EC2
 
-# Trigger deployment only on push to main branch
+# Trigger deployment only on push to the main branch
 on:
   push:
     branches:
@@ -24,7 +24,7 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
 
-      - name: Executing remote ssh commands using ssh key
+      - name: Executing remote SSH commands using SSH key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST_DNS }}
@@ -37,7 +37,7 @@ jobs:
             # Navigate to the target directory
             cd ${{ secrets.TARGET_DIR }}
 
-            # Remove existing Node.js versions
+            # Remove existing Node.js versions if installed
             if sudo yum list installed nodejs &>/dev/null; then
               sudo yum remove -y nodejs npm
             fi
@@ -59,8 +59,9 @@ jobs:
             # Stop all running PM2 processes (optional, for a clean slate)
             pm2 stop all || true
 
-            # Start or reload the Node.js server using PM2, forcing re-execution
-            pm2 startOrReload server.js --name "node-app"
+            # Start or restart the Node.js server using PM2
+            pm2 delete node-app || true
+            pm2 start server.js --name "node-app"
 
             # Save the PM2 process list
             pm2 save
@@ -75,7 +76,7 @@ jobs:
             echo "PM2 Logs:"
             pm2 logs --lines 50
 
-            echo "Checking if server is running..."
+            echo "Checking if the server is running..."
             for i in {1..10}; do
               if curl -s http://localhost:8000 > /dev/null; then
                 echo "Server is up and running!"
