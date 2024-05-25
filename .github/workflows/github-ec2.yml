@@ -30,13 +30,18 @@ jobs:
           host: ${{ secrets.HOST_DNS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          timeout: 60m
           script: |
+            set -e  # Exit immediately if a command exits with a non-zero status
+
             # Navigate to the target directory
             cd ${{ secrets.TARGET_DIR }}
 
             # Remove existing Node.js versions
-            sudo yum remove -y nodejs npm
-            
+            if sudo yum list installed nodejs &>/dev/null; then
+              sudo yum remove -y nodejs npm
+            fi
+
             # Install Node.js 18.x
             curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
             sudo yum install -y nodejs
@@ -54,8 +59,8 @@ jobs:
             # Stop all running PM2 processes (optional, for a clean slate)
             pm2 stop all || true
 
-            # Start or restart the Node.js server using PM2, forcing re-execution
-            pm2 start server.js --name "node-app" -f
+            # Start or reload the Node.js server using PM2, forcing re-execution
+            pm2 startOrReload server.js --name "node-app"
 
             # Save the PM2 process list
             pm2 save
@@ -71,5 +76,18 @@ jobs:
             pm2 logs --lines 50
 
             echo "Checking if server is running..."
-            sleep 5
-            curl -I http://localhost:8000 || true
+            for i in {1..10}; do
+              if curl -s http://localhost:8000 > /dev/null; then
+                echo "Server is up and running!"
+                break
+              else
+                echo "Server not reachable, retrying in 10 seconds..."
+                sleep 10
+              fi
+            done
+
+            # Print final check and exit if the server is not reachable
+            if ! curl -s http://localhost:8000 > /dev/null; then
+              echo "Server is not reachable after multiple attempts, exiting with failure."
+              exit 1
+            fi
