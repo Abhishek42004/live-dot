@@ -78,7 +78,7 @@ jobs:
 
             echo "Checking if the server is running..."
             for i in {1..10}; do
-              if curl -s http://localhost:8000 > /dev/null; then
+              if curl -s https://13.233.75.184:5000 > /dev/null; then
                 echo "Server is up and running!"
                 break
               else
@@ -88,7 +88,7 @@ jobs:
             done
 
             # Print final check and exit if the server is not reachable
-            if ! curl -s http://localhost:8000 > /dev/null; then
+            if ! curl -s https://13.233.75.184:5000 > /dev/null; then
               echo "Server is not reachable after multiple attempts, exiting with failure."
               exit 1
             fi
