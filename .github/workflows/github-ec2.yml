@@ -1,0 +1,48 @@
+name: Deploy to EC2
+
+# Trigger deployment only on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Navigate to the target directory
+            cd ${{ secrets.TARGET_DIR }}
+            
+            # Install Node.js and npm
+            curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+            sudo yum install -y nodejs
+            
+            # Install dependencies
+            npm install
+            
+            # Start the Node.js server using PM2
+            sudo npm install -g pm2
+            pm2 start server.js --name "node-app"
+            pm2 save
+            pm2 startup
