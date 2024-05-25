@@ -48,8 +48,17 @@ jobs:
             # Install dependencies
             npm install
             
-            # Start the Node.js server using PM2
+            # Install PM2 globally
             sudo npm install -g pm2
-            pm2 start server.js --name "node-app"
+
+            # Stop all running PM2 processes (optional, for a clean slate)
+            pm2 stop all
+
+            # Start or restart the Node.js server using PM2, forcing re-execution
+            pm2 start server.js --name "node-app" -f
+
+            # Save the PM2 process list
             pm2 save
-            pm2 startup
+
+            # Set up PM2 to start on system startup (if not already set up)
+            pm2 startup systemd -u ${{ secrets.USERNAME }} --hp /home/${{ secrets.USERNAME }}
