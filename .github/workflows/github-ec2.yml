@@ -72,4 +72,4 @@ jobs:
 
             echo "Checking if server is running..."
             sleep 5
-            curl -I http://localhost:3000 || true
+            curl -I http://localhost:8000 || true
