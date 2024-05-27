@@ -1,79 +1,30 @@
-name: Deploy to EC2
+name: Deploy Nodejs Application
 
-# Trigger deployment only on push to the main branch
 on:
-  push:
+  push: 
     branches:
       - main
 
 jobs:
-  deploy:
-    name: Deploy to EC2
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./"
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-      - name: Executing remote SSH commands using SSH key
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          timeout: 60m
-          script: |
-            set -e  # Exit immediately if a command exits with a non-zero status
-
-            # Navigate to the target directory
-            cd ${{ secrets.TARGET_DIR }}
-
-            # Remove existing Node.js versions if installed
-            if sudo yum list installed nodejs &>/dev/null; then
-              sudo yum remove -y nodejs npm
-            fi
-
-            # Install Node.js 18.x
-            curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
-            sudo yum install -y nodejs
-
-            # Verify installation
-            node -v
-            npm -v
-            
-            # Install dependencies
-            npm install
-
-            # Install PM2 globally
-            sudo npm install -g pm2
-
-            # Stop all running PM2 processes (optional, for a clean slate)
-            pm2 stop all || true
-
-            # Start or restart the Node.js server using PM2
-            pm2 delete node-app || true
-            pm2 start server.js --name "node-app"
-
-            # Save the PM2 process list
-            pm2 save
-
-            # Set up PM2 to start on system startup (if not already set up)
-            sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u ${{ secrets.USERNAME }} --hp /home/${{ secrets.USERNAME }}
-
-            # Add more debugging information
-            echo "PM2 Processes:"
-            pm2 list
-
-            echo "PM2 Logs:"
-            pm2 logs --lines 50
-
-          
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}       
+      - name: Build docker image
+        run: docker build -t abhishek730/nodejs-notes-app .  
+      - name: Publish image to docker hub
+        run: docker push abhishek730/nodejs-notes-app:latest
+        
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull abhishek730/nodejs-notes-app:latest
+      - name: Delete old container
+        run: docker rm -f nodejs-app-container 
+      - name: Run docker container
+        run: docker run -d -p 80:80 --name nodejs-app-container abhishek730/nodejs-notes-app
