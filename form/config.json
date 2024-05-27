@@ -1,0 +1,14 @@
+{
+    "plugins": [
+      "./actionClient-v-0-0-3.js",
+      "./actionServer-v-0-0-3.js",
+      "./actionView-v-0-0-3.js",
+      "./actionUri-v-0-0-3.js",
+      "./actionEvent-v-0-0-3.js",
+      "../plugins/httpService-0-0-3.js",
+      "../plugins/template-engine.js",
+      "../plugins/jsonToHtml.js",
+      "../helpers/actionLocalStorage.js",
+      "./callbackHandler.js"
+    ]
+  }

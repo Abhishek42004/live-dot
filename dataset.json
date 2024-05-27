@@ -1,0 +1,315 @@
+{
+    "dataset_name": "JavaScript Framework Dataset",
+    "description": "A dataset containing code snippets from a JavaScript framework along with their descriptions.",
+    "pages": [
+        {
+            "id": 1,
+            "page": {
+                "tag": "tagName",
+                "children": [
+                    {
+                        "tag": "tagName",
+                        "attributes": {},
+                        "children": [
+                            {
+                                "tag": "tagname",
+                                "content": "content inside tag",
+                                "attributes": {}
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "hero"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "The Most Lightweight, Fastest, and Event-Driven Framework"
+                            },
+                            {
+                                "tag": "p",
+                                "content": "Start building powerful web applications with ehh."
+                            },
+                            {
+                                "tag": "a",
+                                "attributes": {
+                                    "href": "https://github.com/your-ehh-framework-repo",
+                                    "class": "button"
+                                },
+                                "content": "Get Started"
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "features"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "Key Features of ehh Framework"
+                            },
+                            {
+                                "tag": "ul",
+                                "children": [
+                                    {
+                                        "tag": "li",
+                                        "content": "Ultra Lightweight"
+                                    },
+                                    {
+                                        "tag": "li",
+                                        "content": "Blazing Fast Performance"
+                                    },
+                                    {
+                                        "tag": "li",
+                                        "content": "Event-Driven Architecture"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "about"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "About ehh Framework"
+                            },
+                            {
+                                "tag": "p",
+                                "content": "ehh is a cutting-edge JavaScript framework designed for building lightning-fast and highly interactive web applications. With its lightweight footprint and event-driven architecture, ehh empowers developers to create efficient and responsive web experiences."
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "footer",
+                        "children": [
+                            {
+                                "tag": "p",
+                                "content": "© 2024 ehh Framework. All rights reserved."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "description": "Here's a sample json for the structure of how html pages should be written in json for ehh",
+            "context": "This page showcases the sample structure of the ehh Framework web page, highlighting its key features and providing information about the framework."
+        },
+        {
+            "id": 2,
+            "page": {
+                "tag": "div",
+                "children": [
+                    {
+                        "tag": "header",
+                        "children": [
+                            {
+                                "tag": "h1",
+                                "content": "Welcome to ehh Framework"
+                            },
+                            {
+                                "tag": "nav",
+                                "children": [
+                                    {
+                                        "tag": "ul",
+                                        "children": [
+                                            {
+                                                "tag": "li",
+                                                "content": "ADD File",
+                                                "attributes": {
+                                                    "href": "#/add-file",
+                                                    "click": "update-page"
+                                                }
+                                            },
+                                            {
+                                                "tag": "li",
+                                                "children": [
+                                                    {
+                                                        "tag": "a",
+                                                        "attributes": {
+                                                            "href": "index.html"
+                                                        },
+                                                        "content": "Home"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "tag": "li",
+                                                "children": [
+                                                    {
+                                                        "tag": "div",
+                                                        "attributes": {
+                                                            "click": "update-page",
+                                                            "href": "#/signin"
+                                                        },
+                                                        "content": "Log In"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "tag": "li",
+                                                "children": [
+                                                    {
+                                                        "tag": "div",
+                                                        "attributes": {
+                                                            "click": "update-page",
+                                                            "href": "#/signup"
+                                                        },
+                                                        "content": "Sign Up"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "hero"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "The Most Lightweight, Fastest, and Event-Driven Framework"
+                            },
+                            {
+                                "tag": "p",
+                                "content": "Start building powerful web applications with ehh."
+                            },
+                            {
+                                "tag": "a",
+                                "attributes": {
+                                    "href": "https://github.com/your-ehh-framework-repo",
+                                    "class": "button"
+                                },
+                                "content": "Get Started"
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "features"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "Key Features of ehh Framework"
+                            },
+                            {
+                                "tag": "ul",
+                                "children": [
+                                    {
+                                        "tag": "li",
+                                        "content": "Ultra Lightweight"
+                                    },
+                                    {
+                                        "tag": "li",
+                                        "content": "Blazing Fast Performance"
+                                    },
+                                    {
+                                        "tag": "li",
+                                        "content": "Event-Driven Architecture"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "section",
+                        "attributes": {
+                            "id": "about"
+                        },
+                        "children": [
+                            {
+                                "tag": "h2",
+                                "content": "About ehh Framework"
+                            },
+                            {
+                                "tag": "p",
+                                "content": "ehh is a cutting-edge JavaScript framework designed for building lightning-fast and highly interactive web applications. With its lightweight footprint and event-driven architecture, ehh empowers developers to create efficient and responsive web experiences."
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "footer",
+                        "children": [
+                            {
+                                "tag": "p",
+                                "content": "© 2024 ehh Framework. All rights reserved."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "description": "Sample page from the ehh Framework website.",
+            "context": "This page showcases the homepage of the ehh Framework website, highlighting its key features and providing information about the framework."
+        },
+        {
+            "id": 3,
+            "page": {
+                "tag": "form",
+                "attributes": {
+                    "id": "fileUploadForm",
+                    "method": "POST",
+                    "enctype": "multipart/form-data"
+                },
+                "children": [
+                    {
+                        "tag": "input",
+                        "attributes": {
+                            "type": "file",
+                            "id": "fileUpload",
+                            "change": "create-file"
+                        }
+                    },
+                    {
+                        "tag": "button",
+                        "attributes": {
+                            "type": "submit"
+                        },
+                        "content": "Upload"
+                    }
+                ]
+            },
+            "context": "Page for uploading files in the ehh Framework.",
+            "description": "This page allows users to upload files using a form. It contains an input field for selecting files and a button to submit the form."
+        }
+    ],
+    "examples": [
+        {
+            "id": 1,
+            "code_snippet": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /><title>Dia-v-0-0-2</title><link rel=\"stylesheet\" href=\"./beauty/pari.css\"></head><body><div id=\"app\"></div><script type=\"module\" src=\"./app.js\"></script></body></html>",
+            "context": "Entry point for the frontend part of the ehh framework.",
+            "description": "The index page (`index.html`) serves as the entry point for the frontend part of the ehh framework. It contains the basic HTML structure including metadata, links to external resources, and a placeholder for dynamic content rendering."
+        },
+        {
+            "id": 3,
+            "code": "import { ActionApp } from \"./function/core/actionApp.js\"; import { appConfig } from \"./form/appConfig.js\"; let myApp = new ActionApp(appConfig); myApp.start(appConfig);",
+            "context": "Entry file for the backend of the ehh framework and an entry JS file for index.html.",
+            "description": "The app.js file initializes an ActionApp instance with the appConfig and starts the application."
+        },
+        {
+            "dataset_name": "ActionApp Class Code Dataset",
+            "description": "A dataset containing the JavaScript code snippet for the ActionApp class of the ehh framework.",
+            "code_snippets": [
+              {
+                "id": 1,
+                "code": "import { ActionEvent } from './actionEvent.js'; import { ActionClient } from './actionClient.js'; import { ActionServer } from './actionServer.js'; import { ActionUri } from './actionUri.js'; import { ActionView } from './actionView.js'; import { CallbackHandler } from './callbackHandler.js'; import { TemplateEngine } from '../utils/templateEngine.js'; import { JsonToHtml } from '../utils/jsonToHtml.js'; import { ActionBodyParser } from './actionBodyParser.js'; import { HttpService } from '../utils/httpService.js'; import { Validator } from '../utils/validator.js'; export class ActionApp { constructor(config) { this.appConfig = config; this.directory; this.actionEvent = new ActionEvent(config); this.actionClient = new ActionClient(); this.actionServer = new ActionServer(config); this.actionUri = new ActionUri(); this.actionView = new ActionView() this.callbackHandler = new CallbackHandler() this.jsonToHtml = new JsonToHtml(); this.templateEngine = new TemplateEngine() this.actionBodyParser = new ActionBodyParser(); this.httpService = new HttpService(); this.validator = new Validator(); this.actionJwt; this.actionFs } async start(config) { this.actionEvent.initialize(this) this.actionClient.initialize(this) this.actionServer.initialize(this) this.actionUri.initialize(this) this.actionView.init(this) this.callbackHandler.initialize(this) if (typeof window === \"undefined\") { let { ActionJwt } = await import(\"./actionJwt.js\") this.actionJwt = new ActionJwt(config.jwt.secretKey) let { ActionFs } = await import(\"./actionFs.js\") this.actionFs = new ActionFs() } if (typeof window === 'undefined') { const http = await import('http'); const server = http.createServer(async (req, res) => { res.setHeader('Access-Control-Allow-Origin', '*'); res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); res.setHeader('Access-Control-Allow-Credentials', 'true'); if (req.method === 'OPTIONS') { res.statusCode = 200; res.end(JSON.stringify({ message: 'all good' })); return; } try { let { fields, files } = await this.actionBodyParser.parse(req); console.log(\"app.js: Parsed fields:\", fields); console.log(\"app.js: Parsed files:\", files); req.body = fields; if (files) { req.file = files; } } catch (error) { console.error(\"app.js: Error parsing request:\", error); } console.log(\"Request parsed\"); this.actionEvent.handleEvent(req, res); }); const port = config.port || 4000; server.listen(port, () => { console.log(`Backend Server is listening on port ${port}`); }); } else { this.actionClient.sendRequest({ meta: { action: \"get\", entity: \"page\" } }); } } }",
+                "context": "The `ActionApp` class is a central component of the ehh framework responsible for coordinating various actions and services.",
+                "description": "The `ActionApp` class initializes and orchestrates different components such as event handlers, clients, servers, parsers, and services based on the provided configuration. It starts the application by setting up event handling, initializing clients and servers, and configuring routes. Additionally, it handles parsing requests, managing CORS headers, and starting a backend server if the code is running in a Node.js environment."
+              }
+            ]
+          }
+          
+    ]
+}
