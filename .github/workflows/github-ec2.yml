@@ -19,20 +19,20 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
         
       - name: Build docker image
-        run: docker build -t abhishek730/nodejs-notes-app .
+        run: docker build -t abhishek730/dia .
         
       - name: Publish image to docker hub
-        run: docker push abhishek730/nodejs-notes-app:latest
+        run: docker push abhishek730/dia:latest
         
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
-        run: docker pull abhishek730/nodejs-notes-app:latest
+        run: docker pull abhishek730/dia:latest
         
       - name: Delete old container
         run: docker rm -f nodejs-app-container 
         
       - name: Run docker container
-        run: docker run -d -p 80:80 --name nodejs-app-container abhishek730/nodejs-notes-app
+        run: docker run -d -p 80:80 --name nodejs-app-container abhishek730/dia
