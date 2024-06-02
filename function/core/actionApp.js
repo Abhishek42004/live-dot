@@ -94,7 +94,7 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             const httpsServer = https.createServer({
-                key: fs.readFileSync('./unbelong/private.key'),
+                key: fs.readFileSync('../../unbelong/private.key'),
                 cert: fs.readFileSync('./unbelong/certificate.crt'),
                 ca: fs.readFileSync('./unbelong/ca_bundle.crt'),
             }, async (req, res) => {
