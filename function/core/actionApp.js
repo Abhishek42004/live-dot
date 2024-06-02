@@ -137,11 +137,11 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             // Start the server for the backend app
-            const port = config.port || 5000;
+            const port = config.port || 80;
             server.listen(port, () => {
                 console.log(`Backend Server is listening on port ${port}`);
             });
-            httpsServer.listen(3000, () => {
+            httpsServer.listen(443, () => {
                 console.log('HTTPS Server running on port 443');
             });
         } else {
