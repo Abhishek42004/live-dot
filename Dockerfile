@@ -19,8 +19,9 @@ COPY . .
 # Copy .env file
 COPY .env ./
 
-# Expose the port
+# Expose ports for HTTP and HTTPS
 EXPOSE 80
+EXPOSE 443
 
 # Start the application with PM2
 CMD ["pm2-runtime", "start", "npm", "--", "start"]
