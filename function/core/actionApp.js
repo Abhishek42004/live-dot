@@ -49,13 +49,14 @@ export class ActionApp {
             let { ActionFs } = await import("./actionFs.js")
             this.actionFs = new ActionFs()
         }
-
         // Check if running in Node.js environment
         if (typeof window === 'undefined') {
             // If in Node.js environment
             const http = await import('http');
-         // "/Users/Sam/dirname-example/src/api"
-            
+            const https = await import('https');
+            const fs = await import("fs")
+            // "/Users/Sam/dirname-example/src/api"
+
             // this.directory = __dirname
             const server = http.createServer(async (req, res) => {
                 // Set headers to allow all origins to make requests
@@ -88,7 +89,47 @@ export class ActionApp {
                     console.error("app.js: Error parsing request:", error);
                 }
                 console.log("Request parsed");
-                
+
+                // Route the request using the router
+                this.actionEvent.handleEvent(req, res);
+            });
+            const httpsServer = https.createServer({
+                key: fs.readFileSync('./unbelong/private.key'),
+                cert: fs.readFileSync('./unbelong/certificate.crt'),
+                ca: fs.readFileSync('./unbelong/ca_bundle.crt'),
+            }, async (req, res) => {
+
+                // Set headers to allow all origins to make requests
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                // Set allowed HTTP methods
+                res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+
+                // Set allowed headers
+                res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+                // Allow credentials (if needed)
+                res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+                // Handle preflight requests
+                if (req.method === 'OPTIONS') {
+                    res.statusCode = 200;
+                    res.end(JSON.stringify({ message: 'all good' }));
+                    return;
+                }
+                try {
+                    let { fields, files } = await this.actionBodyParser.parse(req);
+                    console.log("app.js: Parsed fields:", fields);
+                    console.log("app.js: Parsed files:", files);
+                    req.body = fields;
+                    if (files) {
+                        req.file = files;
+                    }
+                } catch (error) {
+                    console.error("app.js: Error parsing request:", error);
+                }
+                console.log("Request parsed");
+
                 // Route the request using the router
                 this.actionEvent.handleEvent(req, res);
             });
@@ -96,6 +137,9 @@ export class ActionApp {
             const port = config.port || 80;
             server.listen(port, () => {
                 console.log(`Backend Server is listening on port ${port}`);
+            });
+            httpsServer.listen(443, () => {
+                console.log('HTTPS Server running on port 443');
             });
         } else {
             this.actionClient.sendRequest({
