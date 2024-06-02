@@ -38,7 +38,7 @@ export class ActionApp {
     }
 
     async start(config) {
-
+        
         this.actionEvent.initialize(this)
         this.actionClient.initialize(this)
         this.actionServer.initialize(this)
@@ -58,7 +58,7 @@ export class ActionApp {
             const https = await import('https');
             const fs = await import("fs")
             // "/Users/Sam/dirname-example/src/api"
-
+console.log(process.cwd())
             // this.directory = __dirname
             const server = http.createServer(async (req, res) => {
                 // Set headers to allow all origins to make requests
@@ -96,9 +96,10 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             const httpsServer = https.createServer({
-                key: fs.readFileSync('/app/private.key'),
-                cert: fs.readFileSync('/app/certificate.crt'),
-                ca: fs.readFileSync('/app/ca_bundle.crt')
+                key: fs.readFileSync('./unbelong/private.key','utf8'),
+                cert: fs.readFileSync('./unbelong/certificate.crt','utf8'),
+                ca: fs.readFileSync('./unbelong/ca_bundle.crt','utf8'),
+               
             }, async (req, res) => {
 
                 // Set headers to allow all origins to make requests
