@@ -38,7 +38,7 @@ export class ActionApp {
     }
 
     async start(config) {
-        
+
         this.actionEvent.initialize(this)
         this.actionClient.initialize(this)
         this.actionServer.initialize(this)
@@ -96,10 +96,9 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             const httpsServer = https.createServer({
-                key: fs.readFileSync('./unbelong/private.key'),
-                cert: fs.readFileSync('./unbelong/certificate.crt'),
-                ca: fs.readFileSync('./unbelong/ca_bundle.crt'),
-               
+                key: fs.readFileSync('/app/private.key'),
+                cert: fs.readFileSync('/app/certificate.crt'),
+                ca: fs.readFileSync('/app/ca_bundle.crt')
             }, async (req, res) => {
 
                 // Set headers to allow all origins to make requests

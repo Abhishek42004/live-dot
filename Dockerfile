@@ -16,6 +16,13 @@ RUN npm install -g pm2
 # Copy the rest of the application
 COPY . .
 
+
+# Copy SSL certificate files
+COPY ./unbelong/private.key /app/private.key
+COPY ./unbelong/certificate.crt /app/certificate.crt
+COPY ./unbelong/ca_bundle.crt /app/ca_bundle.crt
+
+
 # Copy .env file
 COPY .env ./
 
