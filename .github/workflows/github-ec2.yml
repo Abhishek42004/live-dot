@@ -19,20 +19,28 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
         
       - name: Build docker image
-        run: docker build -t abhishek730/nodejs-notes-app .
-        
+        run: docker build -t abhishek730/dia .
+
+      - name: Tag docker image
+        run: docker tag abhishek730/dia:latest abhishek730/dia:${{ github.sha }}
+
       - name: Publish image to docker hub
-        run: docker push abhishek730/nodejs-notes-app:latest
-        
+        run: |
+          docker push abhishek730/dia:latest
+          docker push abhishek730/dia:${{ github.sha }}
+
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
-        run: docker pull abhishek730/nodejs-notes-app:latest
+        run: sudo docker pull abhishek730/dia:latest
         
       - name: Delete old container
-        run: docker rm -f nodejs-app-container 
+        run: |
+          if sudo docker ps -a --format '{{.Names}}' | grep -Eq "^nodejs-app-container\$"; then
+            sudo docker rm -f nodejs-app-container
+          fi
         
       - name: Run docker container
-        run: docker run -d -p 80:80 --name nodejs-app-container abhishek730/nodejs-notes-app
+        run: sudo docker run -d -p 80:80 --name nodejs-app-container abhishek730/dia:latest
