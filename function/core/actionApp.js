@@ -9,6 +9,7 @@ import { JsonToHtml } from '../utils/jsonToHtml.js';
 import { ActionBodyParser } from './actionBodyParser.js';
 import { HttpService } from '../utils/httpService.js';
 import { Validator } from '../utils/validator.js';
+
 // import { ActionJwt } from './actionJwt.js';
 
 
@@ -37,6 +38,7 @@ export class ActionApp {
     }
 
     async start(config) {
+        
         this.actionEvent.initialize(this)
         this.actionClient.initialize(this)
         this.actionServer.initialize(this)
@@ -94,9 +96,10 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             const httpsServer = https.createServer({
-                key: fs.readFileSync('../../unbelong/private.key'),
+                key: fs.readFileSync('./unbelong/private.key'),
                 cert: fs.readFileSync('./unbelong/certificate.crt'),
                 ca: fs.readFileSync('./unbelong/ca_bundle.crt'),
+               
             }, async (req, res) => {
 
                 // Set headers to allow all origins to make requests
@@ -134,11 +137,11 @@ export class ActionApp {
                 this.actionEvent.handleEvent(req, res);
             });
             // Start the server for the backend app
-            const port = config.port || 80;
+            const port = config.port || 5000;
             server.listen(port, () => {
                 console.log(`Backend Server is listening on port ${port}`);
             });
-            httpsServer.listen(443, () => {
+            httpsServer.listen(3000, () => {
                 console.log('HTTPS Server running on port 443');
             });
         } else {
