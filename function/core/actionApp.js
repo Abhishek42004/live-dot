@@ -141,7 +141,7 @@ console.log(process.cwd())
             server.listen(port, () => {
                 console.log(`Backend Server is listening on port ${port}`);
             });
-            httpsServer.listen(3000, () => {
+            httpsServer.listen(443, () => {
                 console.log('HTTPS Server running on port 443');
             });
         } else {
